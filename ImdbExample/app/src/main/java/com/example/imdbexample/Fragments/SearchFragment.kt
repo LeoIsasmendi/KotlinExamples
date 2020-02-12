@@ -1,0 +1,107 @@
+package com.example.imdbexample.Fragments
+
+
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.imdbexample.Models.MovieResponse
+
+import com.example.imdbexample.R
+import com.example.imdbexample.Services.Helper
+import com.example.imdbexample.Services.IMDBService
+import com.example.imdbexample.Services.ServiceFactory
+import kotlinx.android.synthetic.main.fragment_search.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
+class SearchFragment : Fragment() {
+
+    val mService: IMDBService = ServiceFactory.IMDB.create(Helper.API_KEY)
+    var mQuery: String = ""
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_search, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        search_input.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+
+                mQuery = s.toString()
+            }
+        })
+
+        btn_search.setOnClickListener { searchForMovie(mQuery) }
+
+
+        // Set the adapter
+        if (view is RecyclerView) {
+            with(view) {
+                layoutManager = LinearLayoutManager(context)
+            }
+        }
+
+
+    }
+
+    private fun searchForMovie(query: String) {
+        progress_circular.visibility = View.VISIBLE
+        val call = mService.searchForMovie(query)
+        call.enqueue(object : Callback<MovieResponse> {
+
+            override fun onResponse(
+                call: Call<MovieResponse>,
+                response: Response<MovieResponse>
+            ) {
+
+                progress_circular.visibility = View.GONE
+                if (response.code() == 200) {
+                    if (response.body()!!.results.isEmpty()) {
+                        empty_list.visibility = View.VISIBLE
+                    } else {
+                        empty_list.visibility = View.GONE
+                        list.adapter = MyMoviesRecyclerViewAdapter(response.body()!!.results, null)
+                    }
+
+
+                } else {
+                    empty_list.visibility = View.VISIBLE
+                }
+
+            }
+
+            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                progress_circular.visibility = View.GONE
+                empty_list.visibility = View.VISIBLE
+            }
+        })
+
+    }
+
+}
+
+
