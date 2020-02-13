@@ -14,11 +14,11 @@ import com.example.imdbexample.R
 
 import com.example.imdbexample.Models.Movie
 import com.example.imdbexample.Models.MovieResponse
+import com.example.imdbexample.Models.ViewHolders.MovieViewHolder
 import com.example.imdbexample.Services.Helper
 import com.example.imdbexample.Services.IMDBService
 import com.example.imdbexample.Services.ServiceFactory
 import kotlinx.android.synthetic.main.fragment_movies_list.*
-import kotlinx.android.synthetic.main.fragment_movies_list.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,6 +30,7 @@ class MoviesFragment : Fragment() {
     private var pageNumber = 1
     private var columnCount = 1
     private var listener: OnListFragmentInteractionListener? = null
+    private lateinit var mAdapter: GenericRecyclerViewAdapter<Movie>
 
     companion object {
         fun newInstance(): MoviesFragment {
@@ -41,32 +42,47 @@ class MoviesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_movies_list, container, false)
+        return inflater.inflate(R.layout.fragment_movies_list, container, false)
+    }
 
-        view.text_page_counter.text = getPageNumberText()
 
-        // Set the adapter
-        if (view.list is RecyclerView) {
-            view.list.layoutManager = when {
-                columnCount <= 1 -> LinearLayoutManager(context)
-                else -> GridLayoutManager(context, columnCount)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        text_page_counter.text = getPageNumberText()
+        btn_next.setOnClickListener {
+            pageNumber = if (pageNumber < maxPageNumber) pageNumber + 1 else pageNumber
+            text_page_counter.text = getPageNumberText()
+            fetchMovies()
+        }
+        btn_prev.setOnClickListener {
+            pageNumber = if (pageNumber > 1) pageNumber - 1 else 1
+            text_page_counter.text = getPageNumberText()
+            fetchMovies()
+        }
+        initRecycleView()
+        fetchMovies()
+    }
+
+    private fun initRecycleView() {
+        mAdapter = object : GenericRecyclerViewAdapter<Movie>(listener) {
+
+            override fun getLayoutId(position: Int, obj: Movie): Int {
+                return R.layout.fragment_movies
             }
 
-            fetchMovies()
+            override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
+                return MovieViewHolder(view)
+            }
+
         }
 
-        view.btn_next.setOnClickListener {
-            pageNumber = if (pageNumber < maxPageNumber) pageNumber + 1 else pageNumber
-            view.text_page_counter.text = getPageNumberText()
-            fetchMovies()
+        list.layoutManager = when {
+            columnCount <= 1 -> LinearLayoutManager(context)
+            else -> GridLayoutManager(context, columnCount)
         }
-        view.btn_prev.setOnClickListener {
-            pageNumber = if (pageNumber > 1) pageNumber - 1 else 1
-            view.text_page_counter.text = getPageNumberText()
-            fetchMovies()
-        }
+        list.adapter = mAdapter
 
-        return view
     }
 
     private fun getPageNumberText(): String {
@@ -88,15 +104,14 @@ class MoviesFragment : Fragment() {
                 progress_circular.visibility = View.GONE
 
                 if (response.code() == 200) {
+
                     if (response.body()!!.results.isEmpty()) {
                         empty_list?.visibility = View.VISIBLE
                     } else {
                         empty_list?.visibility = View.GONE
-                        list.adapter =
-                            MyMoviesRecyclerViewAdapter(response.body()!!.results, listener)
+                        mAdapter.setItems(response.body()!!.results)
                     }
 
-                    Log.d(MoviesFragment.toString(), response.body()!!.results.toString())
                 }
             }
 
@@ -119,10 +134,6 @@ class MoviesFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
-    }
-
-    interface OnListFragmentInteractionListener {
-        fun onListFragmentInteraction(item: Movie?)
     }
 
 }

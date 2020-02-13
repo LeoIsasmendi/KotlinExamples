@@ -10,13 +10,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.imdbexample.Models.Movie
 import com.example.imdbexample.Models.MovieResponse
+import com.example.imdbexample.Models.ViewHolders.MovieViewHolder
 
 import com.example.imdbexample.R
 import com.example.imdbexample.Services.Helper
 import com.example.imdbexample.Services.IMDBService
 import com.example.imdbexample.Services.ServiceFactory
 import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.fragment_search.empty_list
+import kotlinx.android.synthetic.main.fragment_search.list
+import kotlinx.android.synthetic.main.fragment_search.progress_circular
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,6 +30,8 @@ class SearchFragment : Fragment() {
 
     val mService: IMDBService = ServiceFactory.IMDB.create(Helper.API_KEY)
     var mQuery: String = ""
+
+    private lateinit var mAdapter: GenericRecyclerViewAdapter<Movie>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,15 +63,25 @@ class SearchFragment : Fragment() {
         })
 
         btn_search.setOnClickListener { searchForMovie(mQuery) }
+        initRecycleView()
+    }
 
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = LinearLayoutManager(context)
+    private fun initRecycleView() {
+        mAdapter = object : GenericRecyclerViewAdapter<Movie>(null) {
+
+            override fun getLayoutId(position: Int, obj: Movie): Int {
+                return R.layout.fragment_movies
             }
+
+            override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
+                return MovieViewHolder(view)
+            }
+
         }
 
+        list.layoutManager = LinearLayoutManager(context)
+        list.adapter = mAdapter
 
     }
 
@@ -84,7 +101,7 @@ class SearchFragment : Fragment() {
                         empty_list.visibility = View.VISIBLE
                     } else {
                         empty_list.visibility = View.GONE
-                        list.adapter = MyMoviesRecyclerViewAdapter(response.body()!!.results, null)
+                        mAdapter.setItems(response.body()!!.results)
                     }
 
 

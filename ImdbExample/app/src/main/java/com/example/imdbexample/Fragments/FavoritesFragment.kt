@@ -5,16 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imdbexample.LocalStorage.LocalStorage
 import com.example.imdbexample.Models.MovieDetailsResponse
+import com.example.imdbexample.Models.ViewHolders.MovieDetailsViewHolder
 
 import com.example.imdbexample.R
 import kotlinx.android.synthetic.main.fragment_favorites.*
 
 class FavoritesFragment : Fragment() {
+
+    private lateinit var mAdapter: GenericRecyclerViewAdapter<MovieDetailsResponse>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,13 +28,24 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initRecycleView()
+    }
 
+    private fun initRecycleView() {
+        mAdapter = object : GenericRecyclerViewAdapter<MovieDetailsResponse>(null) {
 
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = LinearLayoutManager(context)
+            override fun getLayoutId(position: Int, obj: MovieDetailsResponse): Int {
+                return R.layout.fragment_movies
             }
+
+            override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
+                return MovieDetailsViewHolder(view)
+            }
+
         }
+
+        list.layoutManager = LinearLayoutManager(context)
+        list.adapter = mAdapter
     }
 
     override fun onResume() {
@@ -48,9 +61,9 @@ class FavoritesFragment : Fragment() {
             empty_list.visibility = View.VISIBLE
         } else {
             empty_list.visibility = View.GONE
-            list.adapter = MyMoviesRecyclerViewAdapterMovieDetails(result, null)
+            mAdapter.setItems(result)
         }
 
     }
 
-   }
+}

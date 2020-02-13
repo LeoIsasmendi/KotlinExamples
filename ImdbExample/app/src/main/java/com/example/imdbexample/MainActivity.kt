@@ -2,18 +2,13 @@ package com.example.imdbexample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import com.example.imdbexample.Fragments.FavoritesFragment
+import com.example.imdbexample.Fragments.*
 
-import com.example.imdbexample.Fragments.MovieDetailsFragment
-import com.example.imdbexample.Fragments.MoviesFragment
-import com.example.imdbexample.Fragments.SearchFragment
 import com.example.imdbexample.Models.Movie
-import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MoviesFragment.OnListFragmentInteractionListener {
+class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +25,7 @@ class MainActivity : AppCompatActivity(), MoviesFragment.OnListFragmentInteracti
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here.
-        val id = item.getItemId()
+        val id = item.itemId
 
         if (id == R.id.action_search) {
             showSearchFragment()
@@ -55,8 +50,8 @@ class MainActivity : AppCompatActivity(), MoviesFragment.OnListFragmentInteracti
         }
     }
 
-    override fun onListFragmentInteraction(item: Movie?) {
-        Log.d("onInteraction", item.toString())
+    override fun onListFragmentInteraction(anObject: Any) {
+        val item = anObject as Movie
 
         val fragment =
             MovieDetailsFragment.newInstance(item!!.id)
