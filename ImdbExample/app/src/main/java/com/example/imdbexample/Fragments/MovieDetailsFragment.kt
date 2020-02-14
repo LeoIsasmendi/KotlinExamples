@@ -2,7 +2,7 @@ package com.example.imdbexample.Fragments
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +10,9 @@ import android.widget.FrameLayout
 import android.widget.ImageSwitcher
 import android.widget.ImageView
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import com.example.imdbexample.LocalStorage.LocalStorage
 import com.example.imdbexample.Models.MovieDetailsResponse
-
 import com.example.imdbexample.R
 import com.example.imdbexample.Services.Helper
 import com.example.imdbexample.Services.IMDBService
@@ -23,8 +23,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class MovieDetailsFragment : Fragment() {
 
+    private var isPosterFullscreen = false
     private var indexOfList = 0
     private lateinit var localStorage: LocalStorage
     private lateinit var mMovie: MovieDetailsResponse
@@ -44,7 +46,11 @@ class MovieDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_movie_details, container, false)
+        return inflater.inflate(R.layout.fragment_movie_details, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         localStorage = LocalStorage(activity!!.applicationContext)
 
@@ -76,8 +82,24 @@ class MovieDetailsFragment : Fragment() {
             }
         }
 
-        // Inflate the layout for this fragment
-        return view
+        item_poster.setOnClickListener {
+            isPosterFullscreen = !isPosterFullscreen
+
+            overview.visibility = if (isPosterFullscreen) View.GONE else View.VISIBLE
+            details.visibility = if (isPosterFullscreen) View.GONE else View.VISIBLE
+
+
+            val dimensionInDp = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                150f,
+                resources.displayMetrics
+            ).toInt()
+
+            val newParams = item_poster.layoutParams
+            newParams.width = if (isPosterFullscreen) ViewGroup.LayoutParams.MATCH_PARENT else dimensionInDp
+            item_poster.layoutParams = newParams
+
+        }
     }
 
     private fun toggleIndex(index: Int): Int {
