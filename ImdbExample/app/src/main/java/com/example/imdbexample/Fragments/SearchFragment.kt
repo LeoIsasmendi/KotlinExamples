@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imdbexample.Models.Movie
@@ -28,8 +29,9 @@ import retrofit2.Response
 
 class SearchFragment : Fragment() {
 
-    val mService: IMDBService = ServiceFactory.IMDB.create(Helper.API_KEY)
-    var mQuery: String = ""
+    private var columnCount = 2
+    private val mService: IMDBService = ServiceFactory.IMDB.create(Helper.API_KEY)
+    private var mQuery: String = ""
 
     private lateinit var mAdapter: GenericRecyclerViewAdapter<Movie>
 
@@ -80,7 +82,10 @@ class SearchFragment : Fragment() {
 
         }
 
-        list.layoutManager = LinearLayoutManager(context)
+        list.layoutManager = when {
+            columnCount <= 1 -> LinearLayoutManager(context)
+            else -> GridLayoutManager(context, columnCount)
+        }
         list.adapter = mAdapter
 
     }
