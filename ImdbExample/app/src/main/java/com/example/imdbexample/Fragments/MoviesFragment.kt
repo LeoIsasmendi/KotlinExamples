@@ -28,7 +28,7 @@ class MoviesFragment : Fragment() {
 
     private val maxPageNumber = 100
     private var pageNumber = 1
-    private var columnCount = 1
+    private var columnCount = 2
     private var listener: OnListFragmentInteractionListener? = null
     private lateinit var mAdapter: GenericRecyclerViewAdapter<Movie>
 
