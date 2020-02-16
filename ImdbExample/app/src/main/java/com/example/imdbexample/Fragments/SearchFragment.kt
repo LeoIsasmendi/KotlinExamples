@@ -30,7 +30,7 @@ import retrofit2.Response
 class SearchFragment : Fragment() {
 
     private var columnCount = 2
-    private val mService: IMDBService = ServiceFactory.IMDB.create(Helper.API_KEY)
+    private val mService: IMDBService = ServiceFactory.IMDB.create()
     private var mQuery: String = ""
 
     private lateinit var mAdapter: GenericRecyclerViewAdapter<Movie>

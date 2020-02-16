@@ -118,7 +118,7 @@ class MovieDetailsFragment : Fragment() {
 
 
     private fun getMovieDetails(id: Int) {
-        val mService: IMDBService = ServiceFactory.IMDB.create(Helper.API_KEY)
+        val mService: IMDBService = ServiceFactory.IMDB.create()
         val call = mService.getMovieDetails(id)
 
         progress_circular.visibility = View.VISIBLE

@@ -30,16 +30,21 @@ enum class ServiceFactory(private val clazz: Class<*>) {
     }
 
     fun <T> create(): T {
-        return create(null)
+        val baseHttpClient = httpClient!!.newBuilder()
+            .addInterceptor(QueryInterceptor())
+            .build()
+        return retrofitBuilder!!
+            .callFactory(baseHttpClient)
+            .build()
+            .create(clazz) as T
     }
 
     fun <T> create(authorization: String?): T {
-        var baseHttpClient = httpClient
-        baseHttpClient = httpClient!!.newBuilder()
+        var baseHttpClient = httpClient!!.newBuilder()
             .build()
         if (authorization != null) {
             baseHttpClient = httpClient!!.newBuilder()
-                .addInterceptor(QueryInterceptor())
+                .addInterceptor(AuthorizationInterceptor(authorization))
                 .build()
         }
         return retrofitBuilder!!

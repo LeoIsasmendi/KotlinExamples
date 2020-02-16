@@ -90,7 +90,7 @@ class MoviesFragment : Fragment() {
     }
 
     private fun fetchMovies() {
-        val mService: IMDBService = ServiceFactory.IMDB.create(Helper.API_KEY)
+        val mService: IMDBService = ServiceFactory.IMDB.create()
         val call = mService.getDiscoverMovies(pageNumber)
 
         progress_circular?.visibility = View.VISIBLE
