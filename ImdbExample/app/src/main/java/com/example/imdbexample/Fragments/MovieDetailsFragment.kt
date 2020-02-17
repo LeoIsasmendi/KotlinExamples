@@ -137,7 +137,6 @@ class MovieDetailsFragment : Fragment() {
                     original_language?.text = mMovie.original_language
                     overview?.text = mMovie.overview
                     release_date?.text = mMovie.release_date
-                    popularity?.text = mMovie.popularity.toString()
 
                     Picasso.get().load(Helper.BASE_URL_IMAGE + mMovie?.poster_path)
                         .error(R.drawable.ic_placeholder)
