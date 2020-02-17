@@ -5,13 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/progress_circular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
-
     <TextView
         android:id="@+id/empty_list"
         android:layout_width="wrap_content"
@@ -64,4 +57,12 @@
 
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@android:color/background_light"
+        android:padding="130dp"
+        android:visibility="gone" />
 </RelativeLayout>

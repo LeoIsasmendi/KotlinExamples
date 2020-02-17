@@ -34,13 +34,6 @@
 
         </LinearLayout>
 
-
-        <ProgressBar
-            android:id="@+id/progress_circular"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
-
         <TextView
             android:id="@+id/empty_list"
             android:layout_width="match_parent"
@@ -60,5 +53,12 @@
             tools:context=".Fragments.MoviesFragment"
             tools:listitem="@layout/fragment_movies" />
 
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/background_light"
+            android:padding="130dp"
+            android:visibility="gone" />
     </LinearLayout>
 </FrameLayout>
