@@ -33,6 +33,10 @@ abstract class GenericRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView
         notifyDataSetChanged()
     }
 
+    fun getItems(): List<T> {
+        return this.listItems
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return getViewHolder(
             LayoutInflater.from(parent.context)

@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
 
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
     private var pageNumber = 1
     private var columnCount = 2
     private lateinit var mAdapter: GenericRecyclerViewAdapter<Movie>
+    private lateinit var mOriginalList: List<Movie>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,8 +56,7 @@ class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
             }
 
             override fun onQueryTextChange(s: String?): Boolean { // UserFeedback.show( "SearchOnQueryTextChanged: " + s);
-                Log.d("ImdbExample", "query text change :: " + s)
-
+                filterByTitle(s)
                 return false
             }
         })
@@ -63,12 +64,28 @@ class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
         return true
     }
 
+    private fun filterByTitle(title: String?) {
+        val filteredListItems: ArrayList<Movie> = ArrayList()
+        val mTitle = title!!.toLowerCase(Locale.getDefault())
+
+        if (mTitle.length == 0) {
+            filteredListItems.addAll(mOriginalList)
+        } else {
+            for (aMovie in mAdapter.getItems()) {
+                if (aMovie.title.toLowerCase(Locale.getDefault()).contains(mTitle)) {
+                    filteredListItems.add(aMovie)
+                }
+            }
+        }
+
+        mAdapter.setItems(filteredListItems)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here.
         val id = item.itemId
 
         if (id == R.id.action_search) {
-            showSearch()
             return true
         }
         if (id == R.id.action_favorites) {
@@ -77,9 +94,7 @@ class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
         }
 
         return super.onOptionsItemSelected(item)
-
     }
-
 
     private fun showMovies() {
         text_page_counter.text = getPageNumberText()
@@ -104,10 +119,6 @@ class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
         startActivity(intent)
     }
 
-    private fun showSearch() {
-        TODO("interactive search")
-    }
-
     private fun showFavorites() {
         val localStorage = LocalStorage(this)
         val result = localStorage.getMovies()
@@ -116,8 +127,13 @@ class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
             empty_list.visibility = View.VISIBLE
         } else {
             empty_list.visibility = View.GONE
-            mAdapter.setItems(result)
+            updateAdapter(result)
         }
+    }
+
+    private fun updateAdapter(newList: List<Movie>) {
+        mOriginalList = newList
+        mAdapter.setItems(newList)
     }
 
 
@@ -162,7 +178,7 @@ class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
                         empty_list?.visibility = View.VISIBLE
                     } else {
                         empty_list?.visibility = View.GONE
-                        mAdapter.setItems(response.body()!!.results)
+                        updateAdapter(response.body()!!.results)
                     }
                 }
             }
