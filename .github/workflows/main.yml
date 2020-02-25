@@ -1,4 +1,4 @@
-- name: "Android CI"
+- name: "Imdb Example"
   uses: msfjarvis/setup-android@1.0
   with:
     entrypoint: ./ImdbExample/gradlew
