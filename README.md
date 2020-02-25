@@ -1,4 +1,12 @@
 # KotlinExamples
 Examples of mobile applications using Kotlin
 
-- [Aplicación The Movie Database API](ImdbExample)
+
+## Status
+
+![ImdbExample](https://github.com/LeoIsasmendi/KotlinExamples/workflows/ImdbExample/badge.svg)
+
+
+## Link
+
+- [Aplicación The Movie Database API](ImdbExample) 
