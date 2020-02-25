@@ -83,3 +83,4 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+ImdbExample/app/src/main/java/com/example/imdbexample/Services/Helper.kt
