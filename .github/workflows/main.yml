@@ -1,0 +1,5 @@
+- name: "Android CI"
+  uses: msfjarvis/setup-android@1.0
+  with:
+    entrypoint: ./ImdbExample/gradlew
+    args: dependencies spotlessApply detekt assembleDebug
