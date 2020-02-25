@@ -3,7 +3,6 @@ package com.example.imdbexample
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -47,7 +46,6 @@ class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
         val searchView = myActionMenuItem.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean { // Toast like print
-                Log.d("ImdbExample", "query :: " + query)
                 if (!searchView.isIconified()) {
                     searchView.setIconified(true)
                 }

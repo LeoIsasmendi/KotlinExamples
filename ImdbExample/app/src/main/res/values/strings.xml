@@ -1,12 +1,7 @@
 <resources>
     <string name="app_name">ImdbExample</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="empty_list">No se encontraron películas</string>
     <string name="prev">Prev</string>
     <string name="next">Next</string>
     <string name="page_counter">Page: </string>
-    <string name="hint_search">Search</string>
-    <string name="empty_list_favorites">No se encontraron favoritos</string>
 </resources>
