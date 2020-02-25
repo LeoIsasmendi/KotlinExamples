@@ -1,3 +1,5 @@
+![](https://github.com/LeoIsasmendi/KotlinExamples/workflows/Android%20CI/badge.svg)
+
 # Aplicación The Movie Database API
 
 Esta aplicación obtiene una lista de películas y al seleccionar una se muestra el detalle de la misma. En la vista de detalles se puede guardar la misma como favorita.
@@ -7,7 +9,6 @@ La aplicación cuenta con una pantalla para buscar películas y otra para listar
 - Kotlin
 - Retrofit2
 - SharePreferences
-- Fragments
 
 ## Requisitos:
 - Tener una **Api Key** de [The Movie Database](https://www.themoviedb.org/)
