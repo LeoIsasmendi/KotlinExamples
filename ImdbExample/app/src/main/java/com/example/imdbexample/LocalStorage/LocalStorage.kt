@@ -2,7 +2,7 @@ package com.example.imdbexample.LocalStorage
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.imdbexample.Models.MovieDetailsResponse
+import com.example.imdbexample.Models.Movie
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -11,8 +11,9 @@ class LocalStorage(mContext: Context) {
 
     private val preferencesName = "IMDB_SHARED_PREF"
     private val mKey = "hashString"
+    private val defaultValue = "{}"
     private val gson = Gson()
-    private var favorites: MutableMap<Int, MovieDetailsResponse>
+    private var favorites: MutableMap<Int, Movie>
     private val sharedPref: SharedPreferences =
         mContext.getSharedPreferences(preferencesName, Context.MODE_PRIVATE)
 
@@ -20,28 +21,28 @@ class LocalStorage(mContext: Context) {
         favorites = fetchSavedData()
     }
 
-    fun saveMovie(movie: MovieDetailsResponse) {
+    fun saveMovie(movie: Movie) {
         favorites.put(movie.id, movie)
         updatePreference(favorites)
     }
 
-    fun deleteMovie(movie: MovieDetailsResponse) {
-        favorites.remove(movie.id)
+    fun deleteMovie(movieId: Int ) {
+        favorites.remove(movieId)
         updatePreference(favorites)
     }
 
-    private fun updatePreference(favorites: MutableMap<Int, MovieDetailsResponse>) {
+    private fun updatePreference(favorites: MutableMap<Int, Movie>) {
         val hashMapString = gson.toJson(favorites)
         sharedPref.edit().putString(mKey, hashMapString).apply()
     }
 
-    private fun fetchSavedData(): MutableMap<Int, MovieDetailsResponse> {
-        val storedHashMapString: String = sharedPref.getString(mKey, mKey)
-        val type = object : TypeToken<HashMap<Int?, MovieDetailsResponse?>?>() {}.type
+    private fun fetchSavedData(): MutableMap<Int, Movie> {
+        val storedHashMapString: String = sharedPref.getString(mKey, defaultValue)
+        val type = object : TypeToken<HashMap<Int?, Movie?>?>() {}.type
         return gson.fromJson(storedHashMapString, type)
     }
 
-    fun getMovies(): ArrayList<MovieDetailsResponse> {
+    fun getMovies(): ArrayList<Movie> {
         return ArrayList(fetchSavedData().values)
     }
 
