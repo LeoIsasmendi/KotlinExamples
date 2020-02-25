@@ -1,4 +1,4 @@
-![](https://github.com/LeoIsasmendi/KotlinExamples/workflows/Android%20CI/badge.svg)
+![](https://github.com/LeoIsasmendi/KotlinExamples/workflows/imdbexample/badge.svg)
 
 # Aplicación The Movie Database API
 
