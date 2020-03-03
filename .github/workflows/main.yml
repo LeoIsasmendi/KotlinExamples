@@ -1,5 +1,9 @@
+name: CI
+on:
+  push:
+  pull_request:
+
 - name: "Imdb Example"
-  uses: msfjarvis/setup-android@1.0
-  with:
-    entrypoint: ./ImdbExample/gradlew
-    args: dependencies spotlessApply detekt assembleDebug
+  run: |
+    cd ImdbExample
+    ./gradlew dependencies spotlessApply detekt assembleDebug
