@@ -30,7 +30,11 @@ class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
     private var pageNumber = 1
     private var columnCount = 2
     private lateinit var mAdapter: GenericRecyclerViewAdapter<Movie>
-    private lateinit var mOriginalList: List<Movie>
+    private var mOriginalList: List<Movie>
+
+    init {
+        mOriginalList = ArrayList()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
