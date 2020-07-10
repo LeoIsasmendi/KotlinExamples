@@ -34,6 +34,7 @@
                         android:layout_height="match_parent"
                         android:padding="10dp"
                         android:scaleType="fitXY"
+                        android:contentDescription="@string/item_poster"
                         android:src="@drawable/ic_placeholder" />
 
                     <ImageSwitcher

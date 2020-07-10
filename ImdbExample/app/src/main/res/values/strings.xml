@@ -10,4 +10,5 @@
     <string name="language">Language</string>
     <string name="release_date">Release date</string>
     <string name="overview">Overview</string>
+    <string name="item_poster">item poster</string>
 </resources>
