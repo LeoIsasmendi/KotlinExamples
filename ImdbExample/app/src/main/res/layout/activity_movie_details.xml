@@ -57,7 +57,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Title"
+                        android:text="@string/title"
                         android:textStyle="bold" />
 
                     <TextView
@@ -72,7 +72,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="Language" />
+                        android:text="@string/language" />
 
                     <TextView
                         android:id="@+id/original_language"
@@ -84,7 +84,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="Release date" />
+                        android:text="@string/release_date" />
 
                     <TextView
                         android:id="@+id/release_date"
@@ -100,7 +100,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Overview"
+                android:text="@string/overview"
                 android:textStyle="bold" />
 
             <TextView

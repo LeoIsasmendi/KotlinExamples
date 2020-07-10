@@ -4,4 +4,10 @@
     <string name="prev">Prev</string>
     <string name="next">Next</string>
     <string name="page_counter">Page: </string>
+    <string name="favorites">Favorites</string>
+    <string name="search">Search</string>
+    <string name="title">Title</string>
+    <string name="language">Language</string>
+    <string name="release_date">Release date</string>
+    <string name="overview">Overview</string>
 </resources>
