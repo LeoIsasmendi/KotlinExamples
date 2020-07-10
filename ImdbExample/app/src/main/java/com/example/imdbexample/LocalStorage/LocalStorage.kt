@@ -22,7 +22,7 @@ class LocalStorage(mContext: Context) {
     }
 
     fun saveMovie(movie: Movie) {
-        favorites.put(movie.id, movie)
+        favorites[movie.id] = movie
         updatePreference(favorites)
     }
 

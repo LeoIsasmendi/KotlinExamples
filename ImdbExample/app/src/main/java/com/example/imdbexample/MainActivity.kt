@@ -50,8 +50,8 @@ class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
         val searchView = myActionMenuItem.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean { // Toast like print
-                if (!searchView.isIconified()) {
-                    searchView.setIconified(true)
+                if (!searchView.isIconified) {
+                    searchView.isIconified = true
                 }
                 myActionMenuItem.collapseActionView()
                 return false
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(), OnListFragmentInteractionListener {
         val filteredListItems: ArrayList<Movie> = ArrayList()
         val mTitle = title!!.toLowerCase(Locale.getDefault())
 
-        if (mTitle.length == 0) {
+        if (mTitle.isEmpty()) {
             filteredListItems.addAll(mOriginalList)
         } else {
             for (aMovie in mAdapter.getItems()) {
