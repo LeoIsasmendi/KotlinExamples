@@ -1,8 +1,8 @@
-package com.example.imdbexample.LocalStorage
+package com.example.imdbexample.localStorage
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.imdbexample.Models.Movie
+import com.example.imdbexample.models.Movie
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

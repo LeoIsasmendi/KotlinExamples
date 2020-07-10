@@ -1,7 +1,7 @@
-package com.example.imdbexample.Services
+package com.example.imdbexample.services
 
-import com.example.imdbexample.Models.MovieDetailsResponse
-import com.example.imdbexample.Models.MovieResponse
+import com.example.imdbexample.models.MovieDetailsResponse
+import com.example.imdbexample.models.MovieResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

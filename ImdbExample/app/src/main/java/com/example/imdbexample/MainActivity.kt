@@ -10,14 +10,14 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.imdbexample.Fragments.*
-import com.example.imdbexample.LocalStorage.LocalStorage
+import com.example.imdbexample.fragments.*
+import com.example.imdbexample.localStorage.LocalStorage
 
-import com.example.imdbexample.Models.Movie
-import com.example.imdbexample.Models.MovieResponse
-import com.example.imdbexample.Models.ViewHolders.MovieViewHolder
-import com.example.imdbexample.Services.IMDBService
-import com.example.imdbexample.Services.ServiceFactory
+import com.example.imdbexample.models.Movie
+import com.example.imdbexample.models.MovieResponse
+import com.example.imdbexample.models.viewHolders.MovieViewHolder
+import com.example.imdbexample.services.IMDBService
+import com.example.imdbexample.services.ServiceFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback

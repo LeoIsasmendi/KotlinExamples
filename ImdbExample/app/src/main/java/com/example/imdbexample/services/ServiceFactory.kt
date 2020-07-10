@@ -1,4 +1,4 @@
-package com.example.imdbexample.Services
+package com.example.imdbexample.services
 
 import com.google.gson.Gson
 import okhttp3.OkHttpClient

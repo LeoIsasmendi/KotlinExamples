@@ -1,4 +1,4 @@
-package com.example.imdbexample.Fragments
+package com.example.imdbexample.fragments
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.example.imdbexample.Fragments
+package com.example.imdbexample.fragments
 
 interface OnListFragmentInteractionListener {
     fun onListFragmentInteraction(item: Any)

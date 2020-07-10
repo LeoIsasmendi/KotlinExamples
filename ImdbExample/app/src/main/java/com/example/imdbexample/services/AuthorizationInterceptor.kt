@@ -1,4 +1,4 @@
-package com.example.imdbexample.Services
+package com.example.imdbexample.services
 
 
 import java.io.IOException

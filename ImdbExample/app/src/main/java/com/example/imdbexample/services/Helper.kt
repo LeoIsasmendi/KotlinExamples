@@ -1,4 +1,4 @@
-package com.example.imdbexample.Services
+package com.example.imdbexample.services
 
 object Helper {
     const val BASE_URL_IMAGE = "https://image.tmdb.org/t/p/w500/"

@@ -1,12 +1,12 @@
-package com.example.imdbexample.Models.ViewHolders
+package com.example.imdbexample.models.viewHolders
 
 import android.view.View
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.imdbexample.Fragments.GenericRecyclerViewAdapter
-import com.example.imdbexample.Models.Movie
+import com.example.imdbexample.fragments.GenericRecyclerViewAdapter
+import com.example.imdbexample.models.Movie
 import com.example.imdbexample.R
-import com.example.imdbexample.Services.Helper
+import com.example.imdbexample.services.Helper
 import com.squareup.picasso.Picasso
 
 class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
