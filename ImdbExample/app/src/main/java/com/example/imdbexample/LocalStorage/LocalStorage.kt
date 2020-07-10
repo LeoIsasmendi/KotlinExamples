@@ -37,7 +37,7 @@ class LocalStorage(mContext: Context) {
     }
 
     private fun fetchSavedData(): MutableMap<Int, Movie> {
-        val storedHashMapString: String = sharedPref.getString(mKey, defaultValue)
+        val storedHashMapString: String? = sharedPref.getString(mKey, defaultValue)
         val type = object : TypeToken<HashMap<Int?, Movie?>?>() {}.type
         return gson.fromJson(storedHashMapString, type)
     }
