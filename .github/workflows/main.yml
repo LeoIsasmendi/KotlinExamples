@@ -1,9 +1,7 @@
-name: CI
+name: "Imdb Example"
 on:
   push:
   pull_request:
-
-- name: "Imdb Example"
-  run: |
+jobs: |
     cd ImdbExample
     ./gradlew dependencies spotlessApply detekt assembleDebug
