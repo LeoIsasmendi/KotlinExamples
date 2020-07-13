@@ -4,8 +4,7 @@ Examples of mobile applications using Kotlin
 
 ## Status
 
-![ImdbExample](https://github.com/LeoIsasmendi/KotlinExamples/workflows/ImdbExample/badge.svg)
-
+![CI Imdb Example](https://github.com/LeoIsasmendi/KotlinExamples/workflows/CI%20Imdb%20Example/badge.svg?branch=master)
 
 ## Link
 
