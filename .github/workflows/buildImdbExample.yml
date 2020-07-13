@@ -32,4 +32,4 @@ jobs:
     - name: Build ImdbExample
       run: |
         cd ImdbExample
-        ./gradlew dependencies spotlessApply detekt assembleDebug
+        ./gradlew dependencies assembleDebug
