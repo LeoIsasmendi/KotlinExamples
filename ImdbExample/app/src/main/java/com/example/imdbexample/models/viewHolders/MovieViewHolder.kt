@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso
 class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
     GenericRecyclerViewAdapter.Binder<Movie> {
 
-    var mPosterView: ImageView = itemView.findViewById(R.id.item_poster)
+    private var mPosterView: ImageView = itemView.findViewById(R.id.item_poster)
 
     override fun bind(item: Movie) {
         Picasso.get().load(Helper.BASE_URL_IMAGE + item.poster_path).into(mPosterView)

@@ -26,7 +26,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     private var indexOfList = 0
     private lateinit var localStorage: LocalStorage
     private lateinit var mMovie: MovieDetailsResponse
-    private val MOVIE_ID = "MOVIE_ID"
+    private val movieId = "MOVIE_ID"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +37,7 @@ class MovieDetailsActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        getMovieDetails(intent.getIntExtra(MOVIE_ID, 0))
+        getMovieDetails(intent.getIntExtra(movieId, 0))
     }
 
     private fun initViews() {
