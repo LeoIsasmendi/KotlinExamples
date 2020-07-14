@@ -20,25 +20,21 @@ class MovieResponseTest {
 
     @Test
     fun getPage() {
-        Assert.assertNotNull(model.page)
         Assert.assertEquals(page, model.page)
     }
 
     @Test
     fun getResults() {
-        Assert.assertNotNull(model.results)
         Assert.assertEquals(results, model.results)
     }
 
     @Test
     fun getTotal_results() {
-        Assert.assertNotNull(model.total_results)
         Assert.assertEquals(totalResults, model.total_results)
     }
 
     @Test
     fun getTotal_pages() {
-        Assert.assertNotNull(model.total_pages)
         Assert.assertEquals(totalPages, model.total_pages)
     }
 }
