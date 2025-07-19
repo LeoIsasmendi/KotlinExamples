@@ -2,10 +2,8 @@
 Examples of mobile applications using Kotlin
 
 
-## Status
-
-![CI Imdb Example](https://github.com/LeoIsasmendi/KotlinExamples/workflows/CI%20Imdb%20Example/badge.svg?branch=master)
-
-## Link
-
 - [Aplicación The Movie Database API](ImdbExample) 
+
+## TMDB application status
+[![CI TMDB application](https://github.com/LeoIsasmendi/KotlinExamples/TMDBapp/actions/workflows/ci.yml/badge.svg)](
+     https://github.com/LeoIsasmendi/KotlinExamples/TMDBapp/actions/workflows/ci.yml)
