@@ -84,21 +84,30 @@ dependencies {
     implementation(libs.converter.gson) // Gson converter
     implementation(libs.logging.interceptor) // For logging API requests (optional)
 
-
     // Coil for Image Loading
     implementation(libs.coil.compose)
+
     // Koin for Dependency Injection
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
 
+    // Kotlin coroutines test
+    testImplementation(libs.kotlinx.coroutines.test)
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
+    // Kotlin test
+    testImplementation(kotlin("test-junit5"))
+
+    // Junit5
+    testImplementation(libs.junit.jupiter)
+    testRuntimeOnly(libs.junit.platform.launcher)
+
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Turbine for coroutine and flow tests
+    testImplementation(libs.turbine)
 
     // Mockk
     testImplementation(libs.mockk.mockk)
@@ -109,4 +118,12 @@ dependencies {
     androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.mockk.agent)
 
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+    jvmArgs("-XX:+EnableDynamicAgentLoading")
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
 }
