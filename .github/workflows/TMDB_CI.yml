@@ -1,4 +1,5 @@
-name: TMDB application CI
+
+name: Android CI
 
 on:
   push:
@@ -11,10 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-       working-directory: TMDBapp
+        working-directory: TMDBapp
 
     steps:
       - uses: actions/checkout@v3
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            TMDB:
+              - 'TMDBapp/**'
       - name: set up JDK 21
         uses: actions/setup-java@v3
         with:
@@ -23,19 +30,17 @@ jobs:
           cache: 'gradle'
 
       - name: Grant execute permission for gradlew
+        if: steps.filter.outputs.TMDB == 'true'
         run: chmod +x gradlew
 
       - name: Build with Gradle
+        if: steps.filter.outputs.TMDB == 'true'
         run: ./gradlew build
 
       - name: Run unit tests
+        if: steps.filter.outputs.TMDB == 'true'
         run: ./gradlew test
 
-      - name: Generate coverage report
-        run: ./gradlew jacocoTestReport
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml
+      - name: Lint
+        if: steps.filter.outputs.TMDB == 'true'
+        run: ./gradlew lint
