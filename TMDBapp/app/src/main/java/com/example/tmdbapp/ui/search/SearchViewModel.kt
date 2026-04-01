@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-data class MovieListUiState(
+data class SearchUiState(
     val searchMovies: List<MovieBrief> = emptyList(),
     val isSearchMoviesLoading: Boolean = false,
     val errorMessages: String? = "",
@@ -20,8 +20,8 @@ data class MovieListUiState(
 
 open class SearchViewModel(private val repository: MovieRepository) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(MovieListUiState())
-    val uiState: StateFlow<MovieListUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(SearchUiState())
+    val uiState: StateFlow<SearchUiState> = _uiState.asStateFlow()
 
 
     init {

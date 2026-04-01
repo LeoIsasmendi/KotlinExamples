@@ -7,10 +7,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -22,6 +24,7 @@ import com.example.tmdbapp.navigation.BottomNavItem
 import com.example.tmdbapp.navigation.Screen
 import com.example.tmdbapp.ui.list.MovieListScreen
 import com.example.tmdbapp.ui.search.SearchScreen
+import com.example.tmdbapp.ui.theme.TMDBappTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -99,6 +102,17 @@ fun BottomNavGraph(
                     )
                 }
             )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MainScreenPreview() {
+    TMDBappTheme {
+        Surface {
+            val navController = rememberNavController()
+            MainScreen(appNavController = navController)
         }
     }
 }

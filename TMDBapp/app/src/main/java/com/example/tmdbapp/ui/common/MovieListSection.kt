@@ -13,12 +13,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tmdbapp.data.model.MovieBrief
+import com.example.tmdbapp.ui.theme.TMDBappTheme
 
 @Composable
 fun MovieListSection(
@@ -71,6 +74,60 @@ fun MovieListSection(
                     MovieListItem(movie = movie, onMovieClick = onMovieClick)
                 }
             }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MovieListSectionPreview() {
+    TMDBappTheme {
+        Surface {
+            MovieListSection(
+                title = "Trending Movies",
+                movies = listOf(
+                    MovieBrief(1, "Interstellar", null, "/gEU2QniE6E77NI6lCU6MxlSaba7.jpg", 8.4, "Overview"),
+                    MovieBrief(2, "Inception", null, "/edvXYv793S87lynU0WzCbsDHrrL.jpg", 8.3, "Overview")
+                ),
+                isLoading = false,
+                errorMessage = null,
+                onMovieClick = {},
+                onRetry = {}
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MovieListSectionLoadingPreview() {
+    TMDBappTheme {
+        Surface {
+            MovieListSection(
+                title = "Trending Movies",
+                movies = emptyList(),
+                isLoading = true,
+                errorMessage = null,
+                onMovieClick = {},
+                onRetry = {}
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MovieListSectionErrorPreview() {
+    TMDBappTheme {
+        Surface {
+            MovieListSection(
+                title = "Trending Movies",
+                movies = emptyList(),
+                isLoading = false,
+                errorMessage = "Failed to load movies",
+                onMovieClick = {},
+                onRetry = {}
+            )
         }
     }
 }

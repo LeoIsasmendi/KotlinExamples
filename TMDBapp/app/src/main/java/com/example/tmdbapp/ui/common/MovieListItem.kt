@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,6 +18,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -24,6 +26,7 @@ import coil.request.ImageRequest
 import com.example.tmdbapp.R
 import com.example.tmdbapp.data.model.MovieBrief
 import com.example.tmdbapp.data.remote.TmdbApiService
+import com.example.tmdbapp.ui.theme.TMDBappTheme
 
 @Composable
 fun MovieListItem(
@@ -67,6 +70,26 @@ fun MovieListItem(
                     )
                 }
             }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MovieListItemPreview() {
+    TMDBappTheme {
+        Surface {
+            MovieListItem(
+                movie = MovieBrief(
+                    id = 1,
+                    title = "Interstellar",
+                    name = null,
+                    posterPath = "/gEU2QniE6E77NI6lCU6MxlSaba7.jpg",
+                    voteAverage = 8.4,
+                    overview = "The adventures of a group of explorers who make use of a newly discovered wormhole..."
+                ),
+                onMovieClick = {}
+            )
         }
     }
 }

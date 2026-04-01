@@ -25,6 +25,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.SuggestionChipDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -37,6 +38,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -45,6 +47,7 @@ import com.example.tmdbapp.R
 import com.example.tmdbapp.data.model.Genre
 import com.example.tmdbapp.data.model.MovieDetail
 import com.example.tmdbapp.data.remote.TmdbApiService
+import com.example.tmdbapp.ui.theme.TMDBappTheme
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -64,7 +67,20 @@ fun DetailScreen(
     )
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    DetailContent(
+        uiState = uiState,
+        onNavigateUp = onNavigateUp,
+        onRetry = { viewModel.loadItemDetails() }
+    )
+}
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DetailContent(
+    uiState: DetailUiState,
+    onNavigateUp: () -> Unit,
+    onRetry: () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -118,7 +134,7 @@ fun DetailScreen(
                             textAlign = TextAlign.Center
                         )
                         Spacer(modifier = Modifier.height(8.dp))
-                        Button(onClick = { viewModel.loadItemDetails() }) {
+                        Button(onClick = onRetry) {
                             Text("Retry")
                         }
                     }
@@ -265,4 +281,32 @@ fun GenreChip(genre: Genre) {
             labelColor = MaterialTheme.colorScheme.onSecondaryContainer
         )
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DetailScreenPreview() {
+    TMDBappTheme {
+        Surface {
+            DetailContent(
+                uiState = DetailUiState(
+                    movieDetail = MovieDetail(
+                        id = 1,
+                        title = "Interstellar",
+                        name = null,
+                        overview = "The adventures of a group of explorers who make use of a newly discovered wormhole...",
+                        posterPath = "/gEU2QniE6E77NI6lCU6MxlSaba7.jpg",
+                        backdropPath = "/rAiY_pUm6SwaM44spP0m9HFDv3u.jpg",
+                        voteAverage = 8.4,
+                        releaseDate = "2014-11-05",
+                        firstAirDate = null,
+                        genres = listOf(Genre(1, "Adventure"), Genre(2, "Drama"), Genre(3, "Sci-Fi")),
+                        runtime = 169
+                    )
+                ),
+                onNavigateUp = {},
+                onRetry = {}
+            )
+        }
+    }
 }
